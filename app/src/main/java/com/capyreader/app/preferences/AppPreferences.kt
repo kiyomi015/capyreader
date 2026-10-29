@@ -150,6 +150,9 @@ class AppPreferences(context: Context) {
 
         val titleFollowsBodyFont: Preference<Boolean>
             get() = preferenceStore.getBoolean("article_title_follows_body_font", false)
+
+        val justifyText: Preference<Boolean>
+            get() = preferenceStore.getBoolean("article_justify_text", false)
     }
 
     class ArticleListOptions(private val preferenceStore: PreferenceStore) {

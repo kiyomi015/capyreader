@@ -254,6 +254,7 @@ object SettingsRegistry {
                 R.string.article_style_text_section,
                 R.string.article_style_title_section,
                 R.string.article_style_title_follow_body_font,
+                R.string.article_style_justify_text,
             )
 
             Setting.THEME_MODE -> listOf(

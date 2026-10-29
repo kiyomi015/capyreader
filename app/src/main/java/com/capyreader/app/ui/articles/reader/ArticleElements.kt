@@ -60,6 +60,7 @@ import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextLayoutResult
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.isSpecified
 import coil3.compose.AsyncImage
@@ -192,7 +193,7 @@ fun ParagraphElement(
         return
     }
 
-    val base = LocalTextStyle.current
+    val base = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
     val headingStyle = if (base.fontSize.isSpecified) {
         base.copy(
             fontSize = base.fontSize * headingScale,
@@ -276,7 +277,7 @@ fun CodeBlockElement(
     } else {
         Modifier
     }
-    val base = LocalTextStyle.current
+    val base = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
     val codeStyle = if (base.fontSize.isSpecified) {
         base.copy(fontFamily = FontFamily.Monospace, fontSize = base.fontSize * 0.9f)
     } else {
@@ -401,7 +402,7 @@ private fun CaptionText(
     idToIndex: Map<String, Int>,
     actions: ReaderActions,
 ) {
-    val base = LocalTextStyle.current
+    val base = LocalTextStyle.current.copy(textAlign = TextAlign.Start)
     val captionStyle = if (base.fontSize.isSpecified) {
         base.copy(
             fontSize = base.fontSize * 0.75f,
@@ -512,9 +513,9 @@ fun TableElement(
         if (cell != null) {
             val isHeader = cell.type == LinearTableCellItemType.HEADER
             val cellStyle = if (isHeader) {
-                LocalTextStyle.current.copy(fontWeight = FontWeight.Bold)
+                LocalTextStyle.current.copy(fontWeight = FontWeight.Bold, textAlign = TextAlign.Start)
             } else {
-                LocalTextStyle.current
+                LocalTextStyle.current.copy(textAlign = TextAlign.Start)
             }
 
             Column(

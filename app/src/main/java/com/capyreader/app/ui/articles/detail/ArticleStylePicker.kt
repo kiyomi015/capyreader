@@ -56,6 +56,8 @@ fun ArticleStylePicker(
         mutableFloatStateOf(textSizes.indexOf(fontSize).toFloat())
     }
 
+    var justifyText by remember { mutableStateOf(appPreferences.readerOptions.justifyText.get()) }
+
     var titleAlignment by remember { mutableStateOf(appPreferences.readerOptions.titleTextAlignment.get()) }
     val titleFontSize by appPreferences.readerOptions.titleFontSize.collectChangesWithCurrent()
     var titleSliderPosition by remember(titleFontSize) {
@@ -113,6 +115,16 @@ fun ArticleStylePicker(
                 }
             }
 
+            RowItem {
+                TextSwitch(
+                    onCheckedChange = { checked ->
+                        justifyText = checked
+                        appPreferences.readerOptions.justifyText.set(checked)
+                    },
+                    checked = justifyText,
+                    title = stringResource(R.string.article_style_justify_text)
+                )
+            }
         }
 
         FormSection(title = stringResource(R.string.article_style_title_section)) {

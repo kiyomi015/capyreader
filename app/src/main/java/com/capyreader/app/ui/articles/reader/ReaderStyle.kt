@@ -7,6 +7,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.Hyphens
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -25,6 +26,7 @@ data class ReaderStyle(
     val titleFontFamily: FontFamily?,
     val titleFontSize: TextUnit,
     val titleAlignment: TextAlign,
+    val justifyText: Boolean,
     val wrapPreformattedText: Boolean,
     val showImages: Boolean,
 ) {
@@ -33,6 +35,8 @@ data class ReaderStyle(
             fontFamily = fontFamily,
             fontSize = fontSize,
             lineHeight = fontSize * LINE_HEIGHT_RATIO,
+            textAlign = if (justifyText) TextAlign.Justify else TextAlign.Start,
+            hyphens = if (justifyText) Hyphens.Auto else Hyphens.Unspecified,
         )
 
     val titleTextStyle: TextStyle
@@ -53,6 +57,7 @@ data class ReaderStyle(
             titleFontFamily = null,
             titleFontSize = FontSize.TITLE_DEFAULT.sp,
             titleAlignment = TextAlign.Start,
+            justifyText = false,
             wrapPreformattedText = false,
             showImages = true,
         )
@@ -79,6 +84,7 @@ fun rememberReaderStyle(
     val titleFontSize by options.titleFontSize.collectChangesWithCurrent()
     val titleAlignment by options.titleTextAlignment.collectChangesWithCurrent()
     val titleFollowsBodyFont by options.titleFollowsBodyFont.collectChangesWithCurrent()
+    val justifyText by options.justifyText.collectChangesWithCurrent()
     val horizontalPagination by options.enableHorizontaPagination.collectChangesWithCurrent()
 
     val bodyFont = fontOption.toFontFamily()
@@ -94,6 +100,7 @@ fun rememberReaderStyle(
         titleFontFamily = titleFont,
         titleFontSize = titleFontSize.sp,
         titleAlignment = titleAlignment.toTextAlign(),
+        justifyText = justifyText,
         wrapPreformattedText = horizontalPagination,
         showImages = showImages,
     )
